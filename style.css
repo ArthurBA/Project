@@ -1,0 +1,48 @@
+body{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color:#444
+	
+}
+
+a {color:#48577D;
+	text-decoration: none;
+}
+
+a:hover{text-decoration:underline;} 
+
+h1,h2{margin-bottom: 15px;}
+
+h1{font-size:18px}
+h2{font-size: 16px}
+
+#container{
+	width:780px;
+	margin:200px auto;
+	background-color:#eee;
+	padding:10px;
+	overflow:hidden
+}
+
+#main{
+	width:490px;
+	float: left
+}
+
+#main table{width: 490px}
+
+#main table th{padding:10px;
+	background-color: #48577D;
+	color: #fff;
+	text-align:left;
+}
+
+#main table td{
+	padding: 5px;
+	}
+
+#sideBar{
+	width:150px;
+	float: left
+}
+	
