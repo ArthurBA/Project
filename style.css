@@ -17,32 +17,56 @@ h1{font-size:18px}
 h2{font-size: 16px}
 
 #container{
-	width:780px;
-	margin:200px auto;
+	width:850px;
+	margin: auto;
 	background-color:#eee;
-	padding:10px;
-	overflow:hidden
+	padding:10px 10px 10px 10px;
+	overflow:hidden;
+	position:relative;
 }
 
 #main{
-	width:490px;
+	width:530px;
 	float: left
 }
 
-#main table{width: 490px}
+#main table
+{
+	width: 530px;
 
-#main table th{padding:10px;
+}
+
+#main table th{
+	padding:10px 10px 10px 10px;
 	background-color: #48577D;
 	color: #fff;
 	text-align:left;
 }
 
 #main table td{
-	padding: 5px;
+	padding: 5px 5px 5px 5px;
 	}
 
 #sideBar{
-	width:150px;
+	width:200px;
 	float: left
 }
-	
+
+#myMain{
+	width:720px;
+	float: left
+}
+
+
+#myMain table th
+{
+	padding:10px 10px 10px 10px;
+	background-color: #48577D;
+	color: #fff;
+	text-align:left;
+}
+
+#myMain table td
+{
+	padding: 15px 25px 25px 25px;
+}

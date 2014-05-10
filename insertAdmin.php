@@ -1,5 +1,15 @@
 <?php
-	session_start();
+error_reporting(E_ALL ^ E_NOTICE);
+session_start();
+$username = $_SESSION['username'];
+if(!$username)
+{	
+	echo "Section has expired";
+	header("Location: index.php");
+	exit;
+}
+require('insertAdmin.class.php');
+$obj = new insertAdmin();
 ?>
 <html>
 <head>
@@ -13,10 +23,10 @@
     <td colspan="2"><?php require('header.php');?></td>
   </tr>
   <tr>
-    <td colspan="2" bgcolor="#FFCC33" align="center">Welcome <?php $_SESSION['admin'];?> <a href="logout.php"> | Logout</a></td>
+    <td colspan="2" bgcolor="#FFCC33" align="center">Welcome | <?php $username ?> <a href="logout.php"> | Logout</a></td>
   </tr>
   <tr>
-    <td width="17" bgcolor="#FFCC33"><?php require('adminSideBar.php'); ?>
+    <td width="17" bgcolor="#FFCC33"><?php require('supAdminSidebar.php'); ?>
     <br/>
     <br/>
     <br/>
@@ -27,6 +37,20 @@
     <br/>
     <br/>
     <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+     <br/>
     <br/>
     <br/>
     <br/>
@@ -34,7 +58,7 @@
     <br/>
     <br/>
     </td>
-    <td width="867">
+    <td width="867" style="padding:15px 15px 15px 15px">
     <b>
     <p><h3>Register Administrator's</h3></p></b><br/>
     <form action="insertAdmin.php" method="post">
@@ -42,25 +66,31 @@
   <tr>
     <td width="152" height="42">Name:</td>
     <td width="363">
-    <input class='form-control' type='text' name='name' id='textfield' placeholder = 'Frekkie'/>
+    <input class='form-control' type='text' name='name' id='textfield'/>
     </td>
   </tr>
   <tr>
     <td height="46">Surname:</td>
     <td><label for="textfield"></label>
-      <input class='form-control' type='text' name='surname' id='textfield' placeholder = 'Admin'>
+      <input class='form-control' type='text' name='surname' id='textfield' >
     </td>
   </tr>
   <tr>
     <td height="46">Email:</td>
     <td><label for="textfield"></label>
-      <input class='form-control' type='text' name='email' id='textfield' placeholder = 'email@example.co.za'>
+      <input class='form-control' type='text' name='email' id='textfield' >
+    </td>
+  </tr>
+    <tr>
+    <td height="46">Address:</td>
+    <td><label for="textfield"></label>
+      <textarea class='form-control' cols="20" rows="10" type='text' name='address' id='textfield'></textarea>
     </td>
   </tr>
   <tr>
     <td height="46">Password:</td>
     <td><label for="textfield"></label>
-      <input class='form-control' type='password' name='password' id='textfield' placeholder = '10111'>
+      <input class='form-control' type='password' name='password' id='textfield' >
     </td>
   </tr>
   <tr>
@@ -86,46 +116,17 @@
   </tr>
 </table>
 <?php
+if(isset($_POST['button']))
+{
 	$name = $_POST['name'];
 	$surname = $_POST['surname'];
 	$email = $_POST['email'];
 	$password = $_POST['password'];
+	$cPassword = $_POST['cPassword'];
+	$address = $_POST['address'];
 	
-	$connect = new MySQLi('localhost','carsystem','carsystem','test');
-	if(!$connect)
-	{
-		print '<script type="text/javascript">';
-		print 'alert("Database not connected")';
-		print '</script>';
-		exit();
-	}
-	
-	if(!$name)
-	{
-		print '<script type="text/javascript">';
-		print 'alert("Name was not entered")';
-		print '</script>';
-		exit();
-	}
-							
-	$query = "INSERT INTO admin values('".$email."','".$password."','".$name."','".$surname."')";
-							
-	$results = $connect->query($query);
-	if(!$results)
-	{
-		print '<script type="text/javascript">';
-		print 'alert("Registration was not successful. Please try again")';
-		print '</script>';
-		exit();
-	}
-	else
-	{
-		print '<script type="text/javascript">';
-		print 'alert("Registration successful.")';
-		print '</script>';
-		exit();
-		header("Location: insertMember.php");
-	}
+	$obj->insert($name,$surname,$email,$password,$cPassword,$address);
+}
 ?>
 </body>
 </html>

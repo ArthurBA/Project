@@ -39,7 +39,6 @@
                     <th>Description</th>
                     <th>Price</th>
                     <th>Action</th>
-                    <hr>
                 </tr>
                 <?php
 					
@@ -53,9 +52,8 @@
                     	<td><?php echo $row['pro_name'] ?></td>
                         <td><?php echo $row['pro_desc'] ?></td>
                         <td><?php echo 'R'.$row['pro_price'] ?></td>
-                        <td><a href="product_cart.php?page=products&action=add&id=<?php echo $row['pro_id'] ?>">Add to Cart</a></td>
+                        <td><a href="deleteProduct.php?page=deleteProduct&action=add&id=<?php echo $row['pro_id'] ?>">Select</a></td>
                     </tr>
-                     <hr/>
                 <?php
 					}
 				?>

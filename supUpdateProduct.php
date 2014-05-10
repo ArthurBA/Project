@@ -12,18 +12,20 @@ if(!$username)
 <html>
 <head>
 <title>Car Distribution | Update Product</title>
-
+<link href="js/bootstrap.min.js" rel="stylesheet">
+<link href="css/bootstrap.css" rel="stylesheet">
+<link rel="stylesheet" href = "style.css"/>
 </head>
 <body>
-<table width="900" border="1" align="center" style="border-style:outset">
+<table width="900" border="1" align="center">
   <tr>
     <td colspan="2"><?php require('header.php');?></td>
   </tr>
   <tr>
-    <td colspan="2" bgcolor="#FFCC33" align="center">Welcome <?php echo $username?> <a href="logout.php"> | Logout</a></td>
+    <td colspan="2" bgcolor="#FFCC33" align="center">Welcome  <?php echo $username?> <a href="logout.php"> | Logout</a></td>
   </tr>
   <tr>
-    <td width="17" bgcolor="#FFCC33"><?php require('adminSideBar.php'); ?>
+    <td width="17" bgcolor="#FFCC33"><?php require('supAdminSidebar.php'); ?>
     <br/>
     <br/>
     <br/>
@@ -49,7 +51,7 @@ if(!$username)
 			$res = $connect->query($sql);
 			$affectedRows = $res->num_rows;
 			echo'<form method="post" action="updateProduct.php" style="padding:15px 15px 15px 15px">';
-			echo "<table style='border-style:solid' border='1px'>";
+			echo "<table style='padding:10px 10px 10px 10px'>";
 			while($row = $res->fetch_assoc())
 			{	
 				$id = $row['pro_id'];
@@ -59,8 +61,12 @@ if(!$username)
 				$desc = $row['pro_desc'];
 				
 				echo "<tr>";
-				echo "<td>ID: ".$id." </td>";
+				echo "<tr>";
+				echo "<td><b>ID: ".$id." </b></td>";
+				echo "</tr>";
+				echo "<tr>";
 				echo "<td>Car Name: <input name=".$name." value =".$name."></td>";
+				echo "</tr>";
 				echo "<td>Car Model: <input name=".$model." value =".$model."></td>";
 				echo "<td>Car Price: <input name=".$price." value =".$price."></td>";
 				echo "<td>Car Description: <textarea col='30' row='25' name=".$desc."> '".$desc."'</textarea><td>";	

@@ -6,40 +6,30 @@ class insertProduct
 	private $price;
 	private $desc;
 	
-	public function name($name)
+	public function insertPro($name,$model,$price,$desc)
 	{
-			print '<script type="text/javascript">';
-			print 'alert("Name was not entered")';
-			print '</script>';
-			exit;
-	}
-	
-	public function model($model)
-	{
-		if($model <1995)
+		require('connect.php');
+		$refNum = substr(md5(time()),rand(0,26),6);
+		
+		$proImage = addslashes(file_get_contents($_FILES['pro_image']['tmp_name']));
+		$image = getimagesize($_FILES['pro_image']['tmp_name']);
+		$imgType = $image['mime'];
+		
+		$query = mysql_query("INSERT INTO products VALUES(null,'$name','$model','$price','$desc','$proImage','$imgType','$refNum')");
+		if($query)
 		{
 			print '<script type="text/javascript">';
-			print 'alert("Car model was not entered")';
+			print 'alert("Product stored successfully.")';
 			print '</script>';
 			exit;
 		}
-		
-	}
-	
-	public function price($price)
-	{
+		else
+		{
 			print '<script type="text/javascript">';
-			print 'alert("Car price was not entered")';
+			print 'alert("Product was not successfully stored.")';
 			print '</script>';
 			exit;
-	}
-	
-	public function desc($desc)
-	{
-			print '<script type="text/javascript">';
-			print 'alert("The description of the car was not entered")';
-			print '</script>';
-			exit;
+		}
 	}
 }
 ?>

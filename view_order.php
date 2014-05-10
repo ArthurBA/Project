@@ -9,13 +9,13 @@
 		}
 		else
 		{
-			$sql_s = "SELECT * FROM products WHERE pro_id=$id";
+			$sql_s = "SELECT * FROM cust_order WHERE order_id=$id";
 			$query_s = mysql_query($sql_s);
 			
 			if(mysql_num_rows($query_s) != 0)
 			{
 				$row_s = mysql_fetch_array($query_s);
-				$_SESSION['cart'][$row_s['pro_id']]=array("quantity" => 1,"price" => $row_s['pro_price']);
+				$_SESSION['cart'][$row_s['order_id']]=array("quantity" => 1,"price" => $row_s['order_price']);
 			}
 			else
 			{
@@ -26,7 +26,7 @@
 	}
 
 ?>
-<h1>Product List</h1>
+<h1>Order List</h1>
 <?php
 	if(isset($message))
 	{
@@ -35,25 +35,24 @@
 ?>
             <table>
             	<tr>
-                	<th>Name</th>
-                    <th>Description</th>
-                    <th>Price</th>
+                	<th>Customer Email</th>
+                    <th>Quantity</th>
+                    <th>Order Price</th>
                     <th>Action</th>
-                    <hr>
                 </tr>
                 <?php
 					
-					$sql = "SELECT * FROM products ORDER BY pro_name ASC";
+					$sql = "SELECT * FROM cust_order ORDER BY order_id ASC";
 					$query = mysql_query($sql);
 					
 					while($row=mysql_fetch_array($query))
 					{	
 				?>
                 	<tr>
-                    	<td><?php echo $row['pro_name'] ?></td>
-                        <td><?php echo $row['pro_desc'] ?></td>
-                        <td><?php echo 'R'.$row['pro_price'] ?></td>
-                        <td><a href="product_cart.php?page=products&action=add&id=<?php echo $row['pro_id'] ?>">Add to Cart</a></td>
+                    	<td><?php echo $row['cust_email'] ?></td>
+                        <td><?php echo $row['quantity'] ?></td>
+                        <td><?php echo 'R'.$row['order_price'] ?></td>
+                        <td><a href="sendMail.php?page=view_order&action=add&id=<?php echo $row['order_id'] ?>">Respond</a></td>
                     </tr>
                      <hr/>
                 <?php

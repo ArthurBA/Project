@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL ^ E_NOTICE);
 class register
 {
 	private $name;
@@ -11,94 +12,87 @@ class register
 	private $password;
 	private $cPassword;
 	
-	public function name($name)
+	public function registerMember($name,$surname,$password,$cPassword,$email,$address,$status)
 	{
-		if(!$name)
-		{	
-			print '<script type="text/javascript">';
-			print 'alert("Name was not entered")';
-			print '</script>';
-		}
-		
-	}
-	
-	public function surname($surname)
-	{
-		if(!$surname)
+		if($name)
 		{
-			print '<script type="text/javascript">';
-			print 'alert("Surname was not entered")';
-			print '</script>';
+			if($surname)
+			{
+				if($email)
+				{
+					if(@ereg('^[a-zA-Z0-9_\-\.]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$',$email))
+					{
+						if($address)
+						{
+							if($password)
+							{
+								if($cPassword)
+								{
+									if($password == $cPassword)
+									{
+										require('connect.php');
+										$query = mysql_query("INSERT INTO users VALUES('".$name."','".$surname."','".$password."','".$email."','".$address."','".$status."')");
+										if($query)
+										{
+											print '<script type="text/javascript">';
+											print 'alert("Successfully registered")';
+											print '</script>';
+										}
+										else
+										{
+											print '<script type="text/javascript">';
+											print 'alert("Registration failed. Please try again")';
+											print '</script>';	
+										}
+									}
+									else
+									{
+										echo '<h5 style="color:red">Passwords do not match</h5>';
+										exit;
+									}
+								}
+								else
+								{
+									echo '<h5 style="color:red">Please confirm password</h5>';
+									exit;
+								}
+							}
+							else
+							{
+								echo '<h5 style="color:red">Password was not entered</h5>';
+								exit;
+							}
+						}
+						else
+						{
+							echo '<h5 style="color:red">Address was not entered</h5>';
+							exit;
+						}
+					}
+					else
+					{
+						echo 'Email is not a valid email. Please check your email or go and register a email account';
+						echo '<br/><br/><a href='.header("Location: www.gmail.com").'>Click here to create an email account</a>';
+						exit;
+					}
+				}
+				else
+				{
+					echo '<h5 style="color:red">Email was not entered</h5>';
+					exit;	
+				}
+			}
+			else
+			{
+				echo '<h5 style="color:red">Surname was not entered</h5>';
+				exit;
+			}
 		}
-		
-	}
-	
-	public function id($idNum)
-	{
-		if(!$idNum)
+		else
 		{
-			print '<script type="text/javascript">';
-			print 'alert(ID Number was not entered")';
-			print '</script>';
+			echo '<h5 style="color:red">Name was not entered</h5>';
+			exit;
 		}
 	}
-	
-	public function cell($cellNum)
-	{
-		if($cellNum)
-		{
-			$cellNum = "N/A";
-		}
-			
-	}
-	public function tell($telNum)
-	{
-		if($telNum)
-		{
-			$telNum = "N/A";
-		}
-				
-	}
-	
-	public function address($address)
-	{
-		if(!$address)
-		{
-			print '<script type="text/javascript">';
-			print 'alert("Car price was not entered")';
-			print '</script>';
-		}
-	}
-	
-	public function email($email)
-	{
-		 if(!eregi('^[a-zA-Z0-9_\-\.]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$',$email))
-		 {
-			print '<script type="text/javascript">';
-			print 'alert("Not valid email.")';
-			print '</script>';
-			
-		 }
-		 if($email = "")
-		 {
-			print '<script type="text/javascript">';
-			print 'alert("Email not entered")';
-			print '</script>';
-			
-		 }
-			
-	}
-	
-	public function password($password)
-	{
-		if(!$password)
-		{
-			print '<script type="text/javascript">';
-			print 'alert("Password was not entered")';
-			print '</script>';
-		}
-	}
-	
-
 }
 ?>

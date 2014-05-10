@@ -44,7 +44,7 @@ if(isset($_GET['page']))
     <td colspan="2" bgcolor="#FFCC33" align="center">Welcome <?php echo $username;?> <a href="logout.php"> | Logout</a></td>
   </tr>
   <tr>
-    <td width="17" bgcolor="#FFCC33"><?php require('adminSideBar.php'); ?>
+    <td width="17" bgcolor="#FFCC33"><?php require('supAdminSidebar.php'); ?>
     <br/>
     <br/>
     <br/>
@@ -71,7 +71,7 @@ if(isset($_GET['page']))
         <?php	
            if(isset($_SESSION['cart']))
 		   {
-				$sql = "SELECT * FROM order WHERE order_id IN(";
+				$sql = "SELECT * FROM cust_order WHERE order_id IN(";
 				foreach($_SESSION['cart'] as $id => $value)
 		   		{
 					$sql.=$id.",";

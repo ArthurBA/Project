@@ -8,6 +8,8 @@ if(!$username)
 	header("Location: index.php");
 	exit;
 }
+require('insertProduct.class.php');
+$obj = new insertProduct();
 ?>
 <html>
 <head>
@@ -24,7 +26,7 @@ if(!$username)
     <td colspan="2" bgcolor="#FFCC33" align="center">Welcome <?php echo $username;?> <a href="logout.php"> | Logout</a></td>
   </tr>
   <tr>
-    <td width="17" bgcolor="#FFCC33"><?php require('adminSideBar.php'); ?>
+    <td width="17" bgcolor="#FFCC33"><?php require('supAdminSidebar.php'); ?>
     <br/>
     <br/>
     <br/>
@@ -102,47 +104,15 @@ if(!$username)
 </table>
 <?php
 ini_set('display_errors',1);
-$connect = mysql_connect("localhost","carsystem","carsystem");
-$db = mysql_select_db("Cars",$connect);
 if(isset($_POST['upload']))
 {
-	if(!$db)
-	{
-			print '<script type="text/javascript">';
-			print 'alert("Database is not connected. Please try again later.")';
-			print '</script>';
-			exit;
-	}
-	else
-	{
-		$name = $_POST['name'];
+	
+		$name = strtolower($_POST['name']);
 		$price = $_POST['price'];
 		$model = $_POST['model'];
 		$desc = $_POST['desc'];
-		$refNum = substr(md5(time()),rand(0,26),6);
 		
-		$proImage = addslashes(file_get_contents($_FILES['pro_image']['tmp_name']));
-		$image = getimagesize($_FILES['pro_image']['tmp_name']);
-		$imgType = $image['mime'];
-		
-		$query = "INSERT INTO products VALUES(null,'$name','$model','$price','$desc','$proImage','$imgType','$refNum')";
-	}
-	
-	$results = mysql_query($query,$connect);
-	if($results)
-	{
-		print '<script type="text/javascript">';
-		print 'alert("Product stored successfully.")';
-		print '</script>';
-		exit;
-	}
-	else
-	{
-		print '<script type="text/javascript">';
-		print 'alert("Product was not successfully stored.")';
-		print '</script>';
-		exit;
-	}
+		$obj->insertPro($name,$model,$price,$desc);
 }
 ?>
 </body>

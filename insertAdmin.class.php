@@ -1,96 +1,87 @@
 <?php
 class insertAdmin
 {
-	private $name,$surname,$idNum,$cellNum,$telNum,$address,$email,$password,$cPassword;
+	//private $name,$surname,$idNum,$cellNum,$telNum,$address,$email,$password,$cPassword;
 	
-	public function name($name)
+	public function insert($name,$surname,$email,$password,$cPassword,$address)
 	{
-		if(!$name)
-		{	
-			print '<script type="text/javascript">';
-			print 'alert("Name was not entered")';
-			print '</script>';
+		if($name)
+		{
+			if($surname)
+			{
+				if($email)
+				{
+					if($address)
+					{
+						if($password)
+						{
+							if($cPassword)
+							{
+								if($password == $cPassword)
+								{
+									require('connect.php');
+									$status = "admin";						
+									$query = mysql_query("INSERT INTO users values('".$name."','".$surname."','".$password."','".$email."','".$address."','".$status."')");
+	
+									if(!$query)
+									{
+										print '<script type="text/javascript">';
+										print 'alert("Registration was not successful. Please try again")';
+										print '</script>';
+										exit();
+									}
+									else
+									{
+										print '<script type="text/javascript">';
+										print 'alert("Registration successful.")';
+										print '</script>';
+										exit();
+										header("Location: insertMember.php");
+									}
+									mysql_close();
+								}
+								else
+								{
+									echo'Name was not entered.';
+									exit;
+								}
+							}
+							else
+							{
+								echo'Please confirm your password.';
+								exit;
+							}
+						}
+						else
+						{
+							echo'Password was not entered.';
+							exit;
+						}
+					}
+					else
+					{
+						echo'Address was not entered.';
+						exit;
+					}
+				}
+				else
+				{
+					echo'Email was not entered.';
+					exit;
+				}
+			}
+			else
+			{
+				echo'Surname was not entered.';
+				exit;
+			}
+		}
+		else
+		{
+			echo'Name was not entered.';
+			exit;
 		}
 		
 	}
-	
-	public function surname($surname)
-	{
-		if(!$surname)
-		{
-			print '<script type="text/javascript">';
-			print 'alert("Surname was not entered")';
-			print '</script>';
-		}
-		
-	}
-	
-	public function id($idNum)
-	{
-		if(!$idNum)
-		{
-			print '<script type="text/javascript">';
-			print 'alert(ID Number was not entered")';
-			print '</script>';
-		}
-	}
-	
-	public function cell($cellNum)
-	{
-		if($cellNum)
-		{
-			$cellNum = "N/A";
-		}
-			
-	}
-	public function tell($telNum)
-	{
-		if($telNum)
-		{
-			$telNum = "N/A";
-		}
-				
-	}
-	
-	public function address($address)
-	{
-		if(!$address)
-		{
-			print '<script type="text/javascript">';
-			print 'alert("Car price was not entered")';
-			print '</script>';
-		}
-	}
-	
-	public function email($email)
-	{
-		 if(!eregi('^[a-zA-Z0-9_\-\.]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$',$email))
-		 {
-			print '<script type="text/javascript">';
-			print 'alert("Not valid email.")';
-			print '</script>';
-			
-		 }
-		 if($email = "")
-		 {
-			print '<script type="text/javascript">';
-			print 'alert("Email not entered")';
-			print '</script>';
-			
-		 }
-			
-	}
-	
-	public function password($password)
-	{
-		if(!$password)
-		{
-			print '<script type="text/javascript">';
-			print 'alert("Password was not entered")';
-			print '</script>';
-		}
-	}
-	
-
 }
 ?>

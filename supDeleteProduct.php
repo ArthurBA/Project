@@ -1,17 +1,18 @@
 <?php
+	error_reporting(E_ALL ^ E_NOTICE);
 	session_start();
-	require("connect.php");
 	$username = $_SESSION['username'];
-	$name = $_SESSION['email'];
 	if(!$username)
 	{	
 		echo "Section has expired";
 		header("Location: index.php");
 		exit;
 	}
+	require('connect.php');
+	
 	if(isset($_GET['page']))
 	{
-		$pages = array("products","cart");
+		$pages = array("delete","delete_product");
 		if(in_array($_GET['page'],$pages))
 		{
 			$_page = $_GET['page'];
@@ -19,49 +20,45 @@
 		}
 		else
 		{
-			$_page = "products";
+			$_page = "delete";
 		}
 	}
 	else
 	{
-		$_page = "products";	
+		$_page = "delete";	
 	}
 ?>
 <html>
 <head>
-	<link href="js/bootstrap.min.js" rel="stylesheet">
-	<link href="css/bootstrap.css" rel="stylesheet">
-	<link rel="stylesheet" href = "style.css"/>
-	<title>Shopping Cart</title>
+<title>Car Distribution | Delete Product</title>
+<link href="js/bootstrap.min.js" rel="stylesheet">
+<link href="css/bootstrap.css" rel="stylesheet">
+<link rel="stylesheet" href = "style.css"/>
 </head>
 <body>
-	<table width="1030" align="center" border="1" height="450">
+<table width="900" border="1" align="center" style="border-style:outset">
   <tr>
     <td colspan="2"><?php require('header.php');?></td>
-    </tr>
+  </tr>
   <tr>
-    <td colspan="2" bgcolor="#FFCC33" align="center">Welcome <?php $username;?> <a href="logout.php"> | Logout</a></td>
-    </tr>
+    <td colspan="2" bgcolor="#FFCC33" align="center">Welcome <?php echo $username?> <a href="logout.php"> | Logout</a></td>
+  </tr>
   <tr>
-    <td width="17" bgcolor="#FFCC33"><?php require('sideBar2.php'); ?>
-   <br/>
-   <br/>
-   <br/>
-   <br/>
-   <br/>
-   <br/>
-   <br/>
-   <br/>
-   <br/>
-   <br/>
-   <br/>
-   <br/>
-   <br/>
-   <br/>
-   <br/>
+    <td width="17" bgcolor="#FFCC33"><?php require('supAdminSidebar.php'); ?>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
     </td>
-    <td width="900">
-    <div id = "container">
+    <td width="867" style="padding:10px 10px 10px 10px;">
+    <b><p><h3>Delete Car Information</h3></p></b>
+        <div id = "container">
         <div id="main">
         
         	<?php require($_page.".php"); ?>
@@ -69,7 +66,7 @@
       </div><!--end of main-->
         
         <div id="sideBar" style="padding:5px 1px 35px 35px">
-        <h1>Items added to Cart</h1>
+        <h1><u>Seletcted</u></h1>
         <?php	
            if(isset($_SESSION['cart']))
 		   {
@@ -85,7 +82,7 @@
 				{
 					?>
                     
-                    <p><?php echo $row['pro_name'] ?> x <?php echo $_SESSION['cart'][$row['pro_id']]['quantity']; ?></p>
+                    <p><?php echo $row['pro_name'] ?></p>
                     
                    <?php
 					
@@ -93,22 +90,26 @@
 				
 				?>
                 <hr color="#000000"/>
-                <a href="product_cart.php?page=cart" class='form-1 btn btn-success'>Go insert to cart</a>
+                <a href="deleteProduct.php?page=delete_product" class='form-1 btn btn-success'>Click Here To Go And Delete</a>
                 
                 <?php
 		   }
 		   else
 		   {
-			   echo 'The are no items in your cart. Please insert some items.';
+			   echo '<b>The are no items selected. Select the item(s) to delete.</b>';
 		   }
         ?>
-        </div>
-</div></td>
+        </div><!--end of sidebar-->
+</div>
+
+  </td>
   </tr>
   <tr>
     <td colspan="2" bgcolor="#FFCC33"><?php require('footer.php'); ?></td>
-    </tr>
+  </tr>
 </table>
-
+<p></p>
+<p></p>
+<p></p>
 </body>
 </html>
